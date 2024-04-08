@@ -1,0 +1,16 @@
+{
+    "id": "cc-multicroissant",
+    "version": "0.0.1",
+    "title": "MultiCroissant",
+    "description": "wow",
+    "repository": "https://github.com/krypciak/cc-multicroissant",
+    "tags": ["fun"],
+    "authors": "krypek",
+    "icons": {
+        "24": "icon/icon.png"
+    },
+    "dependencies": {
+        "crosscode": ">=1.4.0"
+    },
+    "plugin": "plugin.js"
+}
