@@ -1,12 +1,12 @@
 <!-- markdownlint-disable MD013 MD024 MD001 MD045 -->
 
-# Example typescript CrossCode mod (compliation using esbuild)
+# CrossCode multiplayer client
 
 ## Building
 
 ```bash
-git clone https://github.com/krypciak/cc-ts-template-esbuild
-cd cc-ts-template-esbuild
+git clone https://github.com/krypciak/cc-multicroissant
+cd cc-multicroissant
 pnpm install
 pnpm run start
 # this should return no errors (hopefully)
