@@ -60,8 +60,10 @@ export class Client {
             this.socket.close()
         })
 
+        const saveData = new ig.SaveSlot(joinData.state.saveData)
         sc.model.enterGame()
         sc.model.enterRunning()
+        ig.storage.loadSlot(saveData, false)
         ig.interact.entries.forEach(e => ig.interact.removeEntry(e))
 
         if (this.serverSettings.godmode) ig.godmode()

@@ -1,4 +1,4 @@
-import { FromClientUpdatePacket } from 'cc-server/src/api'
+import type { FromClientUpdatePacket } from 'cc-multibakery/src/api'
 
 export class UpdatePacketGather {
     private state: FromClientUpdatePacket = {}
