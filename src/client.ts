@@ -13,7 +13,7 @@ export class Client {
 
     constructor() {
         this.updatePacketGather = new UpdatePacketGather()
-        import('../node_modules/cc-multibakery/src/godmode')
+        import('../node_modules/cc-multibakery/src/misc/godmode')
         import('./injects')
 
         const self = this
