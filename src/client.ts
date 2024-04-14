@@ -2,6 +2,7 @@ import { io, Socket as _Socket } from 'socket.io-client'
 import type { ClientToServerEvents, PlayerJoinResponse, ServerSettingsBase, ServerToClientEvents, ToClientUpdatePacket } from 'cc-multibakery/src/api.d.ts'
 import { runUpdatePacket } from './update-packet-run'
 import { UpdatePacketGather } from './update-packet-gather'
+import { injectEntityStateDefinitions } from 'cc-multibakery/src/state/states'
 
 type Socket = _Socket<ServerToClientEvents, ClientToServerEvents>
 const TIMEOUT = 5000
@@ -11,10 +12,21 @@ export class Client {
     updatePacketGather: UpdatePacketGather
     socket!: Socket
 
+    host!: string
+    port!: number
+    username!: string
+
+    isExecutingUpdatePacketNow: boolean = false
+
     constructor() {
         this.updatePacketGather = new UpdatePacketGather()
-        import('../node_modules/cc-multibakery/src/misc/godmode')
-        import('./injects')
+        this.init()
+    }
+    private async init() {
+        await import('../node_modules/cc-multibakery/src/misc/godmode')
+        await import('../node_modules/cc-multibakery/src/dummy-player')
+        await import('./injects')
+        injectEntityStateDefinitions()
 
         const self = this
         sc.GameModel.inject({
@@ -55,6 +67,9 @@ export class Client {
         const joinData: PlayerJoinResponse = await this.socket.timeout(TIMEOUT).emitWithAck('join', username)
         if (joinData.usernameTaken) throw new Error(`username: ${username} is taken`)
         this.serverSettings = joinData.serverSettings
+        this.host = host
+        this.port = port
+        this.username = username
 
         window.addEventListener('beforeunload', () => {
             this.socket.close()
@@ -66,10 +81,19 @@ export class Client {
         ig.storage.loadSlot(saveData, false)
         ig.interact.entries.forEach(e => ig.interact.removeEntry(e))
 
-        if (this.serverSettings.godmode) ig.godmode()
-
         const mapName = joinData.mapName
         ig.game.teleport(mapName)
+
+        await new Promise<void>(resolve => {
+            const id = setInterval(() => {
+                if (ig.game?.maps?.length > 0) {
+                    clearInterval(id)
+                    resolve()
+                }
+            }, 30)
+        })
+        runUpdatePacket(joinData.state.packet)
+        if (!ig.game.playerEntity) throw new Error()
 
         this.socket.on('update', (packet: ToClientUpdatePacket) => {
             runUpdatePacket(packet)
