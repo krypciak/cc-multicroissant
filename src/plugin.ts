@@ -2,6 +2,8 @@ import { PluginClass } from 'ultimate-crosscode-typedefs/modloader/mod'
 import { Mod1 } from './types'
 import { Client } from './client'
 
+import 'setimmediate'
+
 export default class CCMultiplayerClient implements PluginClass {
     static dir: string
     static mod: Mod1

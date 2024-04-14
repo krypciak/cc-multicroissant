@@ -60,7 +60,9 @@ export class Client {
     ) {
         if (this.isConnected()) this.leave()
 
-        this.socket = io(`ws://${host}:${port}`)
+        const url = `ws://${host}:${port}`
+        console.log(url)
+        this.socket = io(url)
         const usernames: string[] = await this.socket.timeout(TIMEOUT).emitWithAck('getPlayerUsernames')
         console.log('usernames:', usernames)
 
