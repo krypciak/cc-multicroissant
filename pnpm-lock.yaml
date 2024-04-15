@@ -17,6 +17,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^6.20.0
     version: 6.21.0(eslint@8.57.0)(typescript@5.4.2)
+  cc-multibakery:
+    specifier: github:krypciak/cc-multibakery
+    version: github.com/krypciak/cc-multibakery/dfea0ee047ac5bd6f5e313012c9a418f33086b4a
   esbuild:
     specifier: ^0.20.0
     version: 0.20.1
@@ -1317,6 +1320,12 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  github.com/krypciak/cc-multibakery/dfea0ee047ac5bd6f5e313012c9a418f33086b4a:
+    resolution: {tarball: https://codeload.github.com/krypciak/cc-multibakery/tar.gz/dfea0ee047ac5bd6f5e313012c9a418f33086b4a}
+    name: cc-multibakery
+    version: 0.0.1
     dev: true
 
   github.com/krypciak/ultimate-crosscode-typedefs/26d4b51e6064963063fa45cda1afdd2d7dcfea8e:
