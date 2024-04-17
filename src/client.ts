@@ -26,6 +26,7 @@ export class Client {
         await import('../node_modules/cc-multibakery/src/misc/godmode')
         await import('../node_modules/cc-multibakery/src/dummy-player')
         await import('./injects')
+        await import('./game-loop')
         injectEntityStateDefinitions()
 
         const self = this
@@ -48,6 +49,7 @@ export class Client {
         sc.model.enterRunning()
         ig.game.reset()
         sc.model.enterTitle()
+        ig.system.startRunLoop()
     }
 
     async connect(
@@ -82,6 +84,7 @@ export class Client {
         sc.model.enterRunning()
         ig.storage.loadSlot(saveData, false)
         ig.interact.entries.forEach(e => ig.interact.removeEntry(e))
+        ig.system.startRunLoop()
 
         const mapName = joinData.mapName
         ig.game.teleport(mapName)
