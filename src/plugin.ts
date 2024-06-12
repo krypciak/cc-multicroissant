@@ -18,6 +18,7 @@ export default class CCMultiplayerClient implements PluginClass {
     async prestart() {
         await import('../node_modules/cc-multibakery/src/misc/modify-prototypes')
         await import('../node_modules/cc-multibakery/src/misc/entity-uuid')
+        await import('../node_modules/cc-multibakery/src/misc/gamepad-focus-fix')
         window.client = new Client()
     }
 
