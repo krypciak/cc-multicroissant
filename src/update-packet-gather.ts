@@ -1,4 +1,4 @@
-import { getDummyUpdateInputFromIgInput, type FromClientUpdatePacket } from 'cc-multibakery/src/api'
+import { getDummyUpdateGamepadInputFromIgGamepadManager, getDummyUpdateInputFromIgInput, type FromClientUpdatePacket } from 'cc-multibakery/src/api'
 
 export class UpdatePacketGather {
     private state!: FromClientUpdatePacket
@@ -28,6 +28,12 @@ export class UpdatePacketGather {
 
         this.state.input = getDummyUpdateInputFromIgInput(ig.input)
     }
+    private gamepadInput() {
+        if (!ig?.gamepad) return
+        if (this.state.paused) throw new Error()
+
+        this.state.gamepadInput = getDummyUpdateGamepadInputFromIgGamepadManager(ig.gamepad)
+    }
     private gatherInput() {
         if (this.state.paused) throw new Error()
         if (!ig.game?.playerEntity) return
@@ -52,6 +58,7 @@ export class UpdatePacketGather {
             this.relativeCursorPos()
             this.gatherInput()
             this.input()
+            this.gamepadInput()
         } else {
             this.state.paused = true
         }

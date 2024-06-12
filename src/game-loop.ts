@@ -16,7 +16,6 @@ ig.System.inject({
         if (window.requestAnimationFrame) {
             window.requestAnimationFrame(drawLoop)
         }
-        console.log(client.serverSettings?.globalTps)
         if (client.isConnected()) {
             const tps = 1e3 / client.serverSettings!.globalTps
             this.intervalId = setInterval(this.run.bind(this), tps) as unknown as number
