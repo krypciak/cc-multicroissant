@@ -16,9 +16,9 @@ ig.System.inject({
         if (window.requestAnimationFrame) {
             window.requestAnimationFrame(drawLoop)
         }
-        console.log(ig.client.serverSettings?.globalTps)
-        if (ig.client.isConnected()) {
-            const tps = 1e3 / ig.client.serverSettings!.globalTps
+        console.log(client.serverSettings?.globalTps)
+        if (client.isConnected()) {
+            const tps = 1e3 / client.serverSettings!.globalTps
             this.intervalId = setInterval(this.run.bind(this), tps) as unknown as number
         }
 
@@ -44,7 +44,7 @@ ig.System.inject({
 // let dd = Date.now()
 // let dc = 0
 function drawLoop() {
-    if (!ig.client.isConnected()) {
+    if (!client.isConnected()) {
         physicsLoop()
     }
     if (!ig.system.hasFocusLost() && !ig.game.fullyStopped && ig.perf.draw) {

@@ -10,9 +10,9 @@ export class UpdatePacketGather {
         const self = this
         sc.PlayerModel.inject({
             setElementMode(element, force, skipEffect) {
-                if (!ig.client.isConnected()) return this.parent(element, force, skipEffect)
+                if (!client.isConnected()) return this.parent(element, force, skipEffect)
 
-                if (ig.client.isExecutingUpdatePacketNow || this !== sc.model.player) {
+                if (client.isExecutingUpdatePacketNow || this !== sc.model.player) {
                     return this.parent(element, force, skipEffect)
                 } else if (this === sc.model.player) {
                     self.state.element = element

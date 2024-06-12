@@ -18,10 +18,10 @@ export default class CCMultiplayerClient implements PluginClass {
     async prestart() {
         await import('../node_modules/cc-multibakery/src/misc/modify-prototypes')
         await import('../node_modules/cc-multibakery/src/misc/entity-uuid')
-        ig.client = new Client()
+        window.client = new Client()
     }
 
     async poststart() {
-        ig.client.connect()
+        client.connect()
     }
 }

@@ -22,9 +22,9 @@ export type Mod1 = Mod & {
     )
 
 declare global {
+    var client: Client
+    
     namespace ig {
-        var client: Client
-
         interface Game {
             pausedVirtual: boolean
         }

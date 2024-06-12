@@ -2,7 +2,7 @@ import type { ToClientUpdatePacket } from 'cc-multibakery/src/api'
 import { EntityStateEntry } from 'cc-multibakery/src/state/states'
 
 export function runUpdatePacket(packet: ToClientUpdatePacket) {
-    ig.client.isExecutingUpdatePacketNow = true
+    client.isExecutingUpdatePacketNow = true
     if (packet.vars) {
         for (const { path, value } of packet.vars) {
             ig.vars.set(path, value)
@@ -28,24 +28,24 @@ export function runUpdatePacket(packet: ToClientUpdatePacket) {
             delete ig.game.entitiesByUUID[player.uuid]
         }
     }
-    ig.client.isExecutingUpdatePacketNow = false
+    client.isExecutingUpdatePacketNow = false
 }
 function setPlayerState(state: EntityStateEntry<'ig.dummy.DummyPlayer'>, uuid: string) {
     let dummy = ig.game.entitiesByUUID[uuid] as ig.dummy.DummyPlayer | undefined
     if (dummy?._killed) dummy = undefined
 
-    if (state.username == ig.client.username && !dummy) {
+    if (state.username == client.username && !dummy) {
         if (!(ig.game.playerEntity instanceof ig.dummy.DummyPlayer)) throw new Error('not possible')
         dummy = ig.game.playerEntity
         delete ig.game.entitiesByUUID[dummy.uuid]
         dummy.uuid = uuid
         ig.game.entitiesByUUID[uuid] = dummy
-        if (ig.client.serverSettings!.godmode) ig.godmode(dummy.model)
+        if (client.serverSettings!.godmode) ig.godmode(dummy.model)
     } else if (!dummy) {
         dummy = ig.game.spawnEntity(ig.dummy.DummyPlayer, 0, 0, 0, { username: state.username!, uuid })
         console.log('creating ', state.username, ig.loading, ig.ready)
         ig.game.entitiesByUUID[uuid] = dummy
-        if (ig.client.serverSettings!.godmode) ig.godmode(dummy.model)
+        if (client.serverSettings!.godmode) ig.godmode(dummy.model)
         dummy.showUsernameBox()
         console.log('created ')
     }
